@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -89,20 +89,8 @@ const SignIn: React.FC = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Sign Up!
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={8}>
@@ -112,4 +100,4 @@ const SignIn: React.FC = () => {
   );
 }
 
-export default SignIn
+export default SignUp
