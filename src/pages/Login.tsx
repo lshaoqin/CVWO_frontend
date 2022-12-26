@@ -1,6 +1,5 @@
 //Adapted from material-ui template at https://github.com/mui/material-ui/tree/v4.x/docs/src/pages/getting-started/templates/sign-in
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn: React.FC = () => {
+const LogIn: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -54,7 +53,7 @@ const SignIn: React.FC = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log In
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -62,10 +61,10 @@ const SignIn: React.FC = () => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="name"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField
@@ -90,7 +89,7 @@ const SignIn: React.FC = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Log In
           </Button>
           <Grid container>
             <Grid item xs>
@@ -99,7 +98,7 @@ const SignIn: React.FC = () => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -113,4 +112,4 @@ const SignIn: React.FC = () => {
   );
 }
 
-export default SignIn
+export default LogIn

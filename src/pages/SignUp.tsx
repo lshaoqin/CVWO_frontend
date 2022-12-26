@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -53,7 +52,7 @@ const SignUp: React.FC = () => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -61,10 +60,10 @@ const SignUp: React.FC = () => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="name"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
           />
           <TextField
@@ -91,6 +90,11 @@ const SignUp: React.FC = () => {
           >
             Sign Up!
           </Button>
+          <Grid item>
+              <Link href="/login" variant="body2">
+                {"Already have an account? Log In"}
+              </Link>
+            </Grid>
         </form>
       </div>
       <Box mt={8}>
