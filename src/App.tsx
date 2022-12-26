@@ -1,6 +1,6 @@
 import Home from './pages/Home';
-import BasicThreadView from './pages/BasicThreadView';
-import StyledThreadView from './pages/StyledThreadView';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -14,14 +14,15 @@ const theme = createTheme({
     },
 });
 
+{/* The router links each view to its corresponding path */}
 const App: React.FC = () => {
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/thread/1" element={<BasicThreadView />} />
-                        <Route path="/thread/1/styled" element={<StyledThreadView />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<SignUp />} />
                         <Route path="/" element={<Home />} />
                     </Routes>
                 </BrowserRouter>
