@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
 const LogIn: React.FC = () => {
   const classes = useStyles();
 
+
+  const LoginHandler = (username: string, password: string) => {
+    //TODO: code for handling logins with rails backend
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

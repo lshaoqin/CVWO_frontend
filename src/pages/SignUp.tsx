@@ -47,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
 const SignUp: React.FC = () => {
   const classes = useStyles();
 
+  const SignUpHandler = (username: string, password: string) => {
+    //TODO: code for handling signups with rails backend
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
