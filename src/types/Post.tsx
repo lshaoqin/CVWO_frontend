@@ -1,5 +1,3 @@
-import React from 'react';
-
 type Post = {
     title: string;
     body: string;
