@@ -49,8 +49,8 @@ const PostModal: React.FC<Props> = ({post}) => {
         {TagChip(tag)})
 
         return(
-        <Accordion className = {classes.accordion} disabled={tagsList.length > 5}>
-            {/* disable accordion expansion if there are less than 5 tags */}
+        <Accordion className = {classes.accordion} disabled={tagsList.length < 6}>
+            {/* disable accordion expansion if there are less than 6 tags, since all will be displayed */}
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 {tagsList.slice(0,5)}
             </AccordionSummary>
