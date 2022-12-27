@@ -2,11 +2,7 @@ import React from 'react';
 import { Chip } from '@material-ui/core';
 import Tag from '../../types/Tag';
 
-type Props = {
-    tag: Tag;
-};
-
-const TagChip: React.FC<Props> = ({tag}) => {
+const TagChip: React.FC<Tag> = (tag) => {
   return (
     <Chip
       label={tag.name + ' ' + tag.weight}
