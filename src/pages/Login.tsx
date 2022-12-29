@@ -8,9 +8,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { postRequest } from '../services/request';
+import { AnyARecord } from 'dns';
+
+//Source: MUI Docs - creates a stylised alert snackbar
+function Alert(props:any) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Copyright: React.FC = () => {
   return (
@@ -48,9 +57,44 @@ const useStyles = makeStyles((theme) => ({
 const LogIn: React.FC = () => {
   const classes = useStyles();
 
+  const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
 
+  const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
+
+  interface Result {
+    token: string;
+  }
+
+  //Code to display an error snackbar when an error is returned
+  function ErrorDisplay (props:any){
+    const handleClose = (event: any, reason: string) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setErrorOpen(false);
+    };
+
+    return (
+    <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error">
+      {errorMsg}
+      </Alert>
+    </Snackbar>
+    )
+  }
   const LoginHandler = (username: string, password: string) => {
-    //TODO: code for handling logins with rails backend
+    postRequest({user: {'name': username, 'password': password}})
+    .then((value: object) => {
+      const result = value as Result
+      localStorage.setItem('token', result.token)
+      console.log(result);
+    })
+    .catch((error: any) => {
+      setErrorMsg(error)
+      setErrorOpen(true)
+      console.error(error);
+    });
   }
 
   return (
@@ -113,6 +157,7 @@ const LogIn: React.FC = () => {
       <Box mt={8}>
         <Copyright />
       </Box>
+      <ErrorDisplay />
     </Container>
   );
 }
