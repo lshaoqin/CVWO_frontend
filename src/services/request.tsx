@@ -1,11 +1,12 @@
 import axios from 'axios'
 
-const API_URL: string = 'http://localhost:3000'
+const API_BASE_URL: string = 'http://localhost:3000'
 
-export async function getRequest(params: object): Promise<object> {
+export async function getRequest(path: string, params: object): Promise<object> {
     try 
     {
-        const response = await axios.get(API_URL, { params });
+        console.log(`${API_BASE_URL}/${path}`)
+        const response = await axios.get(`${API_BASE_URL}/${path}`, params );
         return response.data;
     } 
     catch (error: any) 
@@ -14,10 +15,11 @@ export async function getRequest(params: object): Promise<object> {
     }
 }
 
-export async function postRequest(params: object): Promise<object> {
+export async function postRequest(path: string, params: object): Promise<object> {
     try 
     {
-        const response = await axios.post(API_URL, { params });
+        console.log(`${API_BASE_URL}/${path}`)
+        const response = await axios.post(`${API_BASE_URL}/${path}`, params );
         return response.data;
     } 
     catch (error: any) 

@@ -14,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postRequest } from '../services/request';
-import { AnyARecord } from 'dns';
 
 //Source: MUI Docs - creates a stylised alert snackbar
 function Alert(props:any) {
@@ -57,9 +56,15 @@ const useStyles = makeStyles((theme) => ({
 const LogIn: React.FC = () => {
   const classes = useStyles();
 
-  const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
+  //State variables for form fields
+  const [name, setName] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
+  //State variables for error message
+  const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
+
+
 
   interface Result {
     token: string;
@@ -83,17 +88,18 @@ const LogIn: React.FC = () => {
     </Snackbar>
     )
   }
-  const LoginHandler = (username: string, password: string) => {
-    postRequest({user: {'name': username, 'password': password}})
+  const LoginHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    postRequest('users/login', {'name': name, 'password': password})
     .then((value: object) => {
       const result = value as Result
       localStorage.setItem('token', result.token)
       console.log(result);
     })
     .catch((error: any) => {
-      setErrorMsg(error)
+      setErrorMsg(error.message)
       setErrorOpen(true)
-      console.error(error);
+      console.error(error.message);
     });
   }
 
@@ -115,6 +121,7 @@ const LogIn: React.FC = () => {
             name="username"
             autoComplete="username"
             autoFocus
+            onChange={event => setName(event.target.value)}
           />
           <TextField
             variant="outlined"
@@ -126,6 +133,7 @@ const LogIn: React.FC = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={event => setPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -137,6 +145,7 @@ const LogIn: React.FC = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={LoginHandler}
           >
             Log In
           </Button>
@@ -160,6 +169,7 @@ const LogIn: React.FC = () => {
       <ErrorDisplay />
     </Container>
   );
+
 }
 
 export default LogIn
