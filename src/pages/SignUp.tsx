@@ -1,3 +1,4 @@
+//Adapted from material-ui template at https://github.com/mui/material-ui/tree/v4.x/docs/src/pages/getting-started/templates/sign-in
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,9 +8,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { postRequest } from '../services/request';
+import { Navigate } from "react-router-dom";
+
+//Source: MUI Docs - creates a stylised alert snackbar
+function Alert(props:any) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Copyright: React.FC = () => {
   return (
@@ -47,65 +57,120 @@ const useStyles = makeStyles((theme) => ({
 const SignUp: React.FC = () => {
   const classes = useStyles();
 
-  const SignUpHandler = (username: string, password: string) => {
-    //TODO: code for handling signups with rails backend
+  //State variables for form fields
+  const [name, setName] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+
+  //State variables for error message
+  const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
+
+
+
+  interface Result {
+    token: string;
   }
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up!
-          </Button>
-          <Grid item>
-              <Link href="/login" variant="body2">
-                {"Already have an account? Log In"}
-              </Link>
+  //Code to display an error snackbar when an error is returned
+  function ErrorDisplay (props:any){
+    const handleClose = (event: any, reason: string) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setErrorOpen(false);
+    };
+
+    return (
+    <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error">
+      {errorMsg}
+      </Alert>
+    </Snackbar>
+    )
+  }
+  const SignUpHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    postRequest('users/create', {'name': name, 'password': password})
+    .then((value: object) => {
+      const result = value as Result
+      //localStorage.setItem('token', result.token)
+      console.log(result);
+    })
+    .catch((error: any) => {
+      setErrorMsg(error.message)
+      setErrorOpen(true)
+      console.error(error.message);
+    });
+  }
+  if(localStorage.hasOwnProperty("token")) {
+    return <Navigate to="/" />;
+  } 
+
+  else{
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h5">
+            Sign Up
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              onChange={event => setName(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={event => setPassword(event.target.value)}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={SignUpHandler}
+            >
+              Sign Up
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  {"Already signed up? Log In"}
+                </Link>
+              </Grid>
             </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+        <ErrorDisplay />
+      </Container>
+    );
+  }
+
 }
 
 export default SignUp

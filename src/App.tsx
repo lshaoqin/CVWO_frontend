@@ -14,7 +14,7 @@ const theme = createTheme({
     },
 });
 
-{/* The router links each view to its corresponding path */}
+// The router links each view to its corresponding path
 const App: React.FC = () => {
     return (
         <div className="App">
