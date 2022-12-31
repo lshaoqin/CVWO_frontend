@@ -5,7 +5,7 @@ type Post = {
     body: string;
     author: string;
     tags: Array<Tag>;
-    timestamp: Date;
+    created_at: Date;
 };
 
 export default Post;

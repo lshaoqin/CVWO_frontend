@@ -1,25 +1,45 @@
-import BasicThreadList from '../components/BasicThreadList';
 import React from 'react';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getRequest } from "../services/request";
+import PostCard from "../components/posts/PostCard";
+import Post from '../types/Post';
+import { useEffect, useState } from 'react';
 
 const Home: React.FC = () => {
-    //If user is not logged in, bring them to the login page
-    if(!localStorage.hasOwnProperty("token")) {
-        return <Navigate to="/login" />;
-    }
+  const [posts, setPosts] = useState([] as Array<Post>);
+  const [error, setError] = useState(null as Error | null);
 
-    else {
-        return (
-            <>
-                <h3>
-                    {"Welcome to CVWO's sample react app! Here's a basic list of forum threads for you to experiment with."}
-                </h3>
-                <br />
-                <BasicThreadList />
-            </>
-        );
-    }
-    
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if (!localStorage.hasOwnProperty('token')) {
+          navigate('/login');
+      }
+
+      getRequest('posts/index', {})
+      .then((value: object) => {
+          console.log(value)
+          setPosts(value as Array<Post>);
+      })
+      .catch((error: any) => {
+          setError(error);
+      });
+  }, []);
+
+  if (error) {
+    return <h3>{error.message}</h3>;
+  }
+
+  return (
+      <>
+          <h3>Welcome to TagUp!</h3>
+          <br />
+          <div>
+              {posts.map((post: Post) => (
+                  <PostCard post={post} />
+              ))}
+          </div>
+      </>
+  );
 };
-
 export default Home;

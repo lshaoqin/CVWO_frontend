@@ -1,4 +1,4 @@
-{/* Template for each post in Thread view. */}
+// Template for each post in Thread view.
 
 import Post from '../../types/Post';
 import React from 'react';
@@ -32,7 +32,7 @@ const PostDisplayItem: React.FC<Props> = ({ post }) => {
                     {post.title}
                 </Typography>
                 <Typography color="textSecondary" className={classes.metadata} gutterBottom>
-                    {'Posted by ' + post.author + ' on ' + post.timestamp.toLocaleString()}
+                    {'Posted by ' + post.author + ' on ' + post.created_at.toLocaleString()}
                 </Typography>
             </CardContent>
         </Card>
