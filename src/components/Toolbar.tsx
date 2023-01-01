@@ -23,5 +23,5 @@ const tb: React.FC<ToolbarProps> = ({ label }) => {
         </AppBar>
     )
 }
-//TODO: Add logout
+
 export default tb
