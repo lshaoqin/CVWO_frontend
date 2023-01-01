@@ -2,12 +2,12 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import LogOut from './pages/LogOut';
+import CreatePost from './pages/CreatePost';
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue, orange } from '@material-ui/core/colors';
-import { Navigate } from 'react-router-dom';
 
 const theme = createTheme({
     palette: {
@@ -27,6 +27,7 @@ const App: React.FC = () => {
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/" element={<Home />} />
                         <Route path="/logout" element={<LogOut />} />
+                        <Route path="/newpost" element={<CreatePost />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
