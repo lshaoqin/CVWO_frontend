@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postRequest } from '../services/request';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 //Source: MUI Docs - creates a stylised alert snackbar
 function Alert(props:any) {
@@ -65,7 +65,7 @@ const LogIn: React.FC = () => {
   const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
-
+  const nav = useNavigate();
 
   interface Result {
     token: string;
@@ -96,6 +96,7 @@ const LogIn: React.FC = () => {
       const result = value as Result
       localStorage.setItem('token', result.token)
       console.log(result);
+      nav("/");
     })
     .catch((error: any) => {
       setErrorMsg(error.message)

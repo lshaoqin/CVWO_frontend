@@ -33,7 +33,7 @@ const Home: React.FC = () => {
 
   return (
       <>
-          <h3>Welcome to TagUp!</h3>
+          <Toolbar label = "TagUp" />
           <br />
           <div>
               {posts.map((post: Post) => (
