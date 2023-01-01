@@ -25,7 +25,7 @@ const Home: React.FC = () => {
       .catch((error: any) => {
           setError(error);
       });
-  }, []);
+  }, [navigate]);
 
   if (error) {
     return <h3>{error.message}</h3>;
