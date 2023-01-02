@@ -35,11 +35,6 @@ const CreatePost: React.FC = () => {
   const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
-
-  const handleTags = (receivedTags: string[]) => {
-    setTags(receivedTags);
-  }
-
   const nav = useNavigate()
   //Redirect user if not logged in
   useEffect(() => {
