@@ -29,7 +29,7 @@ const CreatePost: React.FC = () => {
   const handleChildStateChange = (state: string[]) => {
     setTags(state);
   }
-
+  /*
   const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     postRequest('users/login', {'name': name, 'password': password})
@@ -45,6 +45,7 @@ const CreatePost: React.FC = () => {
       console.error(error.message);
     });
   }
+  */ 
   return (
     <div>
     <CssBaseline />

@@ -8,8 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-
-import MuiAlert from '@material-ui/lab/Alert'
+import ErrorDisplay from '../components/functional/ErrorSnackbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -17,10 +16,7 @@ import { postRequest } from '../services/request';
 import { Navigate, useNavigate } from "react-router-dom";
 
 
-//Source: MUI Docs - creates a stylised alert snackbar
-function Alert(props:any) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+
 
 const Copyright: React.FC = () => {
   return (
@@ -151,7 +147,7 @@ const LogIn: React.FC = () => {
         <Box mt={8}>
           <Copyright />
         </Box>
-        <ErrorDisplay />
+        {errorOpen && <ErrorDisplay errorMsg={errorMsg}/>}
       </Container>
     );
 

@@ -1,19 +1,21 @@
 import Snackbar from '@material-ui/core/Snackbar';
+import React from 'react'
+import MuiAlert from '@material-ui/lab/Alert'
 
-function ErrorDisplay (props:any){
-    const handleClose = (event: any, reason: string) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setErrorOpen(false);
-    };
+//Source: MUI Docs - creates a stylised alert snackbar
+function Alert(props:any) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function ErrorDisplay(props: { errorMsg: string }) {
 
     return (
-    <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error">
-      {errorMsg}
-      </Alert>
-    </Snackbar>
-    )
-  }
+      <Snackbar open={true} autoHideDuration={6000}>
+        <Alert severity="error">
+          {props.errorMsg}
+        </Alert>
+      </Snackbar>
+    );
+  };
+
+  export default ErrorDisplay;
