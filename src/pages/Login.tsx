@@ -147,7 +147,11 @@ const LogIn: React.FC = () => {
         <Box mt={8}>
           <Copyright />
         </Box>
-        {errorOpen && <ErrorDisplay errorMsg={errorMsg}/>}
+        <ErrorDisplay 
+        errorOpen={errorOpen}
+        setErrorOpen={setErrorOpen}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}/>
       </Container>
     );
 

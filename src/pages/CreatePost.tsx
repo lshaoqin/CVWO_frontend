@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import TagSelector from '../components/tags/TagSelector';
 import { postRequest } from '../services/request';
 import { useNavigate } from 'react-router-dom';
+import ErrorDisplay from '../components/functional/ErrorSnackbar';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,8 +36,8 @@ const CreatePost: React.FC = () => {
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
 
-  const handleChildStateChange = (state: string[]) => {
-    setTags(state);
+  const handleTags = (receivedTags: string[]) => {
+    setTags(receivedTags);
   }
 
   const nav = useNavigate()
@@ -60,7 +61,7 @@ const CreatePost: React.FC = () => {
       setErrorOpen(true)
       return
     }
-    postRequest('posts/create', {'token': token, 'title': title, 'body':body})
+    postRequest('posts/create', {'token': token, 'title': title, 'body':body, 'tags':tags})
     .then((value: object) => {
       const result = value as Result
       console.log(result);
@@ -104,13 +105,18 @@ const CreatePost: React.FC = () => {
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />
-      <TagSelector onStateChange={handleChildStateChange}/>
+      <TagSelector tags={tags} setTags={setTags}/>
       <Button variant="contained" color="primary" onClick={SubmitHandler}>
         Create Post
       </Button>
     </form>
     </div>
     </Container>
+    <ErrorDisplay 
+        errorOpen={errorOpen}
+        setErrorOpen={setErrorOpen}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}/>
     </div>
   );
 }
