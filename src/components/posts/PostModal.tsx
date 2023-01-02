@@ -5,7 +5,7 @@ import { Typography, Modal, Chip, Card, CardContent } from '@material-ui/core';
 import { Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Tag from '../../types/Post';
-import TagChip from './TagChip'
+import TagChip from '../tags/TagChip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 type Props = {

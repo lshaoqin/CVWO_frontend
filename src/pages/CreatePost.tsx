@@ -2,10 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Toolbar from '../components/Toolbar';
+import Toolbar from '../components/functional/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import TagSelector from '../components/posts/TagSelector';
+import TagSelector from '../components/tags/TagSelector';
+import { postRequest } from '../services/request';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -23,6 +24,27 @@ const useStyles = makeStyles((theme) => ({
 const CreatePost: React.FC = () => {
   const classes = useStyles();
 
+  const [tags, setTags] = React.useState<Array<string>>([]);
+
+  const handleChildStateChange = (state: string[]) => {
+    setTags(state);
+  }
+
+  const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    postRequest('users/login', {'name': name, 'password': password})
+    .then((value: object) => {
+      const result = value as Result
+      localStorage.setItem('token', result.token)
+      console.log(result);
+      nav("/");
+    })
+    .catch((error: any) => {
+      setErrorMsg(error.message)
+      setErrorOpen(true)
+      console.error(error.message);
+    });
+  }
   return (
     <div>
     <CssBaseline />
@@ -38,6 +60,7 @@ const CreatePost: React.FC = () => {
         label="Post Title"
         variant="outlined"
         margin='normal'
+        name='title'
       />
       <TextField
         id="outlined"
@@ -47,8 +70,9 @@ const CreatePost: React.FC = () => {
         multiline
         minRows={4}
         margin='normal'
+        name='body'
       />
-      <TagSelector />
+      <TagSelector onStateChange={handleChildStateChange}/>
       <Button variant="contained" color="primary">
         Create Post
       </Button>

@@ -8,13 +8,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Snackbar from '@material-ui/core/Snackbar';
+
 import MuiAlert from '@material-ui/lab/Alert'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postRequest } from '../services/request';
 import { Navigate, useNavigate } from "react-router-dom";
+
 
 //Source: MUI Docs - creates a stylised alert snackbar
 function Alert(props:any) {
@@ -72,23 +73,7 @@ const LogIn: React.FC = () => {
   }
 
   //Code to display an error snackbar when an error is returned
-  function ErrorDisplay (props:any){
-    const handleClose = (event: any, reason: string) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setErrorOpen(false);
-    };
-
-    return (
-    <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error">
-      {errorMsg}
-      </Alert>
-    </Snackbar>
-    )
-  }
+ 
   const LoginHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     postRequest('users/login', {'name': name, 'password': password})

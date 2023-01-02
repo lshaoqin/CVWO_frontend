@@ -4,7 +4,7 @@ import { getRequest } from "../services/request";
 import PostCard from "../components/posts/PostCard";
 import Post from '../types/Post';
 import { useEffect, useState } from 'react';
-import Toolbar from "../components/Toolbar"
+import Toolbar from "../components/functional/Toolbar"
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);

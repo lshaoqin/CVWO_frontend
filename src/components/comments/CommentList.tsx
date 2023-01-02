@@ -1,5 +1,5 @@
 import CommentItem from './CommentItem';
-import Comment from '../types/Comment';
+import Comment from '../../types/Comment';
 
 import React from 'react';
 
