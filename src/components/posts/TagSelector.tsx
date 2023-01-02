@@ -6,7 +6,7 @@ import tagOptions from './tagOptions'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@mui/material/Grid';
 
-const TagSelector: React.FC = () => {
+const TagSelector: React.FC<{ onStateChange: (state: string[]) => void }> = (props) => {
     const [tags, setTags] = React.useState<Array<string>>([]);
     const [value, setValue] = React.useState<string>('');
 
@@ -35,6 +35,7 @@ const TagSelector: React.FC = () => {
                         //Max number of tags is 20, and doesn't include duplicate tags.
                         if (tags.length<20 && !tags.includes(newValue)) {
                         setTags([...tags, newValue]);
+                        props.onStateChange(tags);
                         setValue('');
                         }
                     }
