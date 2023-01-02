@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '../components/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import TagSelector from '../components/posts/TagSelector';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -47,6 +48,7 @@ const CreatePost: React.FC = () => {
         minRows={4}
         margin='normal'
       />
+      <TagSelector />
       <Button variant="contained" color="primary">
         Create Post
       </Button>

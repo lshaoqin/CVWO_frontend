@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { EventHandler } from 'react';
 import { Chip } from '@material-ui/core';
 import Tag from '../../types/Tag';
 
