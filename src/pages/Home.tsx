@@ -4,7 +4,10 @@ import { getRequest } from "../services/request";
 import PostCard from "../components/posts/PostCard";
 import Post from '../types/Post';
 import { useEffect, useState } from 'react';
-import Toolbar from "../components/functional/Toolbar"
+import Toolbar from "../components/functional/Toolbar";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);
@@ -40,6 +43,17 @@ const Home: React.FC = () => {
                   <PostCard post={post} />
               ))}
           </div>
+          <Link to="/newpost">
+          <Fab color="primary" 
+          aria-label="add" 
+          sx={{
+            position: "fixed",
+            bottom: (theme) => theme.spacing(2),
+            right: (theme) => theme.spacing(2)
+          }}>
+            <AddIcon />
+        </Fab>
+        </Link>
       </>
   );
 };
