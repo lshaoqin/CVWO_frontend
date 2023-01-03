@@ -11,6 +11,8 @@ type Props = {
     tags: Array<Tag>;
 };
 
+const token = localStorage.getItem('token')
+
 const PostGenerator: React.FC = () => {
   const { postId } = useParams()
 
@@ -18,7 +20,7 @@ const PostGenerator: React.FC = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getRequest('posts/get_by_id', {id: postId})
+    getRequest('posts/get_by_id', {id: postId, token: token})
       .then((value: object) => {
         const result = value as Props;
         setPost(result);
