@@ -33,7 +33,7 @@ const PostModal: React.FC<Props> = ({post}) => {
     const classes = useStyles();
 
     //Handlers for opening and closing the modal
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const handleOpen = () => {
         setOpen(true);
