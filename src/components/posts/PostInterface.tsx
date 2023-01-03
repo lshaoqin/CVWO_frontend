@@ -4,12 +4,14 @@ import React from 'react';
 import { Typography, Modal, Chip, Card, CardContent } from '@material-ui/core';
 import { Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Tag from '../../types/Post';
+import Tag from '../../types/Tag';
 import TagChip from '../tags/TagChip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Toolbar from '../functional/Toolbar'
 
 type Props = {
-    post: Post;
+    post: Post,
+    tags: Array<Tag>,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -29,23 +31,12 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const PostModal: React.FC<Props> = ({post}) => {
+const PostInterface: React.FC<Props> = (props) => {
     const classes = useStyles();
-
-    //Handlers for opening and closing the modal
-    const [open, setOpen] = React.useState(true);
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     //Generator for accordion of tags, which can be expanded if there are too many to be displayed in one line
     const TagsAccordion: React.FC = () => {
-        const tagsList = post.tags.map((tag) => 
+        const tagsList = props.tags.map((tag) => 
         {TagChip(tag)})
 
         return(
@@ -64,23 +55,16 @@ const PostModal: React.FC<Props> = ({post}) => {
 
     return (
         <div>
-        <Modal
-            aria-labelledby="post-modal-title"
-            aria-describedby="post-modal-description"
-            open={open}
-            onClose={handleClose}
-            className={classes.modal}
-        >
             <div className={classes.paper}>
-            <h2 id="post-modal-title">{post.title}</h2>
-            <p id="post-modal-description">
-                {post.body}
+            <h2 id="post-title">{props.post.title}</h2>
+            <p id="post-description">
+                {props.post.body}
             </p>
             <TagsAccordion></TagsAccordion>
             </div>
-        </Modal>
+
         </div>
     );
 }
 
-export default PostModal;
+export default PostInterface;
