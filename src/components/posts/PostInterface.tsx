@@ -5,7 +5,6 @@ import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Tag from '../../types/Tag';
 import TagChip from '../tags/TagChip'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Toolbar from '../functional/Toolbar'
 import EnterComment from '../comments/AddComment';
 import ErrorDisplay from '../functional/ErrorSnackbar';
@@ -90,7 +89,10 @@ const PostInterface: React.FC<Props> = (props) => {
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>
             </div>
-
+            <ErrorDisplay errorMsg={errorMsg}
+                            setErrorMsg={setErrorMsg}
+                            errorOpen={errorOpen}
+                            setErrorOpen={setErrorOpen} />
         </div>
     );
 }
