@@ -36,17 +36,21 @@ const PostInterface: React.FC<Props> = (props) => {
 
     //Generator for accordion of tags, which can be expanded if there are too many to be displayed in one line
     const TagsAccordion: React.FC = () => {
-        const tagsList = props.tags.map((tag) => 
-        {TagChip(tag)})
 
         return(
-        <Accordion className = {classes.accordion} disabled={tagsList.length < 6}>
+        <Accordion className = {classes.accordion} disabled={props.tags.length < 6}>
             {/* disable accordion expansion if there are less than 6 tags, since all will be displayed */}
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                {tagsList.slice(0,5)}
+                {props.tags.map((tag: Tag) => 
+                    (
+                        <TagChip tag={tag} />
+                    ))}
             </AccordionSummary>
             <AccordionDetails>
-                {tagsList}
+                {props.tags.map((tag: Tag) => 
+                    (
+                        <TagChip tag={tag} />
+                    ))}
             </AccordionDetails>
         </Accordion>
         );
