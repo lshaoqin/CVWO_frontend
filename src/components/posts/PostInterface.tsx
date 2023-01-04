@@ -8,6 +8,9 @@ import Tag from '../../types/Tag';
 import TagChip from '../tags/TagChip'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Toolbar from '../functional/Toolbar'
+import EnterComment from '../comments/AddComment';
+import ErrorDisplay from '../functional/ErrorSnackbar';
+import { postRequest } from '../../services/request';
 
 type Props = {
     post: Post,
@@ -34,6 +37,33 @@ const useStyles = makeStyles((theme) => ({
 const PostInterface: React.FC<Props> = (props) => {
     const classes = useStyles();
 
+    //State variables for comment box
+    const [newComment, setNewComment] = React.useState<string>("");
+
+    //State variables for error message
+    const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
+
+    const token = localStorage.getItem('token')
+
+    const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (!newComment.trim) {
+          setErrorMsg("Empty comments are not allowed.")
+          setErrorOpen(true)
+          return
+        }
+        postRequest('commentss/create', {'token': token, 'body':newComment, 'post_id':props.post.id})
+        .then((value: object) => {
+          
+        })
+        .catch((error: any) => {
+          setErrorMsg(error.message)
+          setErrorOpen(true)
+          console.error(error.message);
+        });
+    }
+
     //Generator for accordion of tags, which can be expanded if there are too many to be displayed in one line
     const TagsAccordion: React.FC = () => {
 
@@ -59,12 +89,16 @@ const PostInterface: React.FC<Props> = (props) => {
 
     return (
         <div>
+            <Toolbar label="TagUp"/>
             <div className={classes.paper}>
             <h2 id="post-title">{props.post.title}</h2>
             <p id="post-description">
                 {props.post.body}
             </p>
             <TagsAccordion></TagsAccordion>
+            <EnterComment newComment={newComment}
+                        setNewComment={setNewComment}
+                        SubmitHandler={SubmitHandler}/>
             </div>
 
         </div>
