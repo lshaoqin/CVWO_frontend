@@ -38,7 +38,7 @@ const PostInterface: React.FC<Props> = (props) => {
     const TagsAccordion: React.FC = () => {
 
         return(
-        <Accordion className = {classes.accordion} disabled={props.tags.length < 6}>
+        <Accordion className = {classes.accordion}>
             {/* disable accordion expansion if there are less than 6 tags, since all will be displayed */}
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 {props.tags.map((tag: Tag) => 
@@ -47,9 +47,9 @@ const PostInterface: React.FC<Props> = (props) => {
                     ))}
             </AccordionSummary>
             <AccordionDetails>
-                {props.tags.map((tag: Tag) => 
+                {props.tags.map((tag: Tag, index) => 
                     (
-                        <TagChip tag={tag} />
+                        <TagChip tag={tag} key={index}/>
                     ))}
             </AccordionDetails>
         </Accordion>
