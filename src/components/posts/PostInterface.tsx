@@ -1,8 +1,7 @@
 // A post modal is a popover that appears when the post card is clicked
 import Post from '../../types/Post';
 import React from 'react';
-import { Typography, Modal, Chip, Card, CardContent } from '@material-ui/core';
-import { Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Tag from '../../types/Tag';
 import TagChip from '../tags/TagChip'
@@ -65,24 +64,15 @@ const PostInterface: React.FC<Props> = (props) => {
     }
 
     //Generator for accordion of tags, which can be expanded if there are too many to be displayed in one line
-    const TagsAccordion: React.FC = () => {
+    const TagsDisplay: React.FC = () => {
 
         return(
-        <Accordion className = {classes.accordion}>
-            {/* disable accordion expansion if there are less than 6 tags, since all will be displayed */}
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                {props.tags.map((tag: Tag) => 
-                    (
-                        <TagChip tag={tag} />
-                    ))}
-            </AccordionSummary>
-            <AccordionDetails>
+            <Container>
                 {props.tags.map((tag: Tag, index) => 
                     (
                         <TagChip tag={tag} key={index}/>
                     ))}
-            </AccordionDetails>
-        </Accordion>
+            </Container>
         );
         
     }
@@ -95,7 +85,7 @@ const PostInterface: React.FC<Props> = (props) => {
             <p id="post-description">
                 {props.post.body}
             </p>
-            <TagsAccordion></TagsAccordion>
+            <TagsDisplay></TagsDisplay>
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>
