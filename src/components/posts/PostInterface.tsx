@@ -51,7 +51,7 @@ const PostInterface: React.FC<Props> = (props) => {
           setErrorOpen(true)
           return
         }
-        postRequest('comments/create', {'token': token, 'body':newComment, 'post_id':props.post.id})
+        postRequest('comments/new', {'token': token, 'body':newComment, 'post_id':props.post.id})
         .then((value: object) => {
           
         })
