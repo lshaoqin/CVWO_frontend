@@ -8,7 +8,7 @@ import Toolbar from '../functional/Toolbar'
 import EnterComment from '../comments/AddComment';
 import ErrorDisplay from '../functional/ErrorSnackbar';
 import { postRequest } from '../../services/request';
-import Comment from '../../types/Comment';
+import CommentList from '../comments/CommentList';
 
 type Props = {
     post: Post,
@@ -88,6 +88,7 @@ const PostInterface: React.FC<Props> = (props) => {
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>
+            <CommentList post_id={props.post.id} />
             </div>
             <ErrorDisplay errorMsg={errorMsg}
                             setErrorMsg={setErrorMsg}
