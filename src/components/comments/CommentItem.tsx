@@ -33,7 +33,7 @@ const CommentItem: React.FC<Props> = ({ comment, styled }) => {
                         {comment.body}
                     </Typography>
                     <Typography color="textSecondary" className={classes.metadata} gutterBottom>
-                        {'Posted by ' + comment.author + ' on ' + comment.timestamp.toLocaleString()}
+                        {'Posted by ' + comment.author + ' on ' + comment.created_at.toLocaleString()}
                     </Typography>
                 </CardContent>
             </Card>
@@ -45,7 +45,7 @@ const CommentItem: React.FC<Props> = ({ comment, styled }) => {
         <li className={classes.commentBody}>
             {comment.body}
             <br />
-            <em>{'posted by ' + comment.author + ' on ' + comment.timestamp.toLocaleString()}</em>
+            <em>{'posted by ' + comment.author + ' on ' + comment.created_at.toLocaleString()}</em>
         </li>
     );
 };

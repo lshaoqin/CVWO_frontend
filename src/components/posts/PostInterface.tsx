@@ -1,4 +1,3 @@
-// A post modal is a popover that appears when the post card is clicked
 import Post from '../../types/Post';
 import React from 'react';
 import { Container } from '@material-ui/core';
@@ -9,6 +8,7 @@ import Toolbar from '../functional/Toolbar'
 import EnterComment from '../comments/AddComment';
 import ErrorDisplay from '../functional/ErrorSnackbar';
 import { postRequest } from '../../services/request';
+import Comment from '../../types/Comment';
 
 type Props = {
     post: Post,
@@ -51,7 +51,7 @@ const PostInterface: React.FC<Props> = (props) => {
           setErrorOpen(true)
           return
         }
-        postRequest('commentss/create', {'token': token, 'body':newComment, 'post_id':props.post.id})
+        postRequest('comments/create', {'token': token, 'body':newComment, 'post_id':props.post.id})
         .then((value: object) => {
           
         })
