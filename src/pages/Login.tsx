@@ -66,6 +66,7 @@ const LogIn: React.FC = () => {
 
   interface Result {
     token: string;
+    username: string;
   }
 
   //Code to display an error snackbar when an error is returned
@@ -76,6 +77,7 @@ const LogIn: React.FC = () => {
     .then((value: object) => {
       const result = value as Result
       localStorage.setItem('token', result.token)
+      localStorage.setItem('username', result.username)
       console.log(result);
       nav("/");
     })
