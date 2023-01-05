@@ -40,7 +40,9 @@ const Home: React.FC = () => {
           <br />
           <div>
               {posts.map((post: Post) => (
+                <a href={"/posts/" + post.id}>
                   <PostCard post={post} />
+                </a>
               ))}
           </div>
           <Link to="/newpost">
