@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postRequest } from '../services/request';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 //Source: MUI Docs - creates a stylised alert snackbar
 function Alert(props:any) {
@@ -69,6 +69,7 @@ const SignUp: React.FC = () => {
 
   interface Result {
     token: string;
+    username: string;
   }
 
   //Code to display an error snackbar when an error is returned
@@ -89,13 +90,17 @@ const SignUp: React.FC = () => {
     </Snackbar>
     )
   }
+
+  const nav = useNavigate();
   const SignUpHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     postRequest('users/create', {'name': name, 'password': password})
     .then((value: object) => {
       const result = value as Result
-      //localStorage.setItem('token', result.token)
-      console.log(result);
+      //Log the user in
+      localStorage.setItem('token', result.token)
+      localStorage.setItem('username', result.username)
+      nav("/");
     })
     .catch((error: any) => {
       setErrorMsg(error.message)
