@@ -9,6 +9,7 @@ import EnterComment from '../comments/AddComment';
 import ErrorDisplay from '../functional/ErrorSnackbar';
 import { postRequest } from '../../services/request';
 import CommentList from '../comments/CommentList';
+import Comment from '../../types/Comment';
 
 type Props = {
     post: Post,
@@ -42,18 +43,24 @@ const PostInterface: React.FC<Props> = (props) => {
     const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
     const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
+    //State variables for displaying comments
+    const [comments, setComments] = React.useState<Comment[] | null>(null);
+
     const token = localStorage.getItem('token')
 
     const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (!newComment.trim) {
+        setNewComment('');
+        if (!newComment.trim()) {
           setErrorMsg("Empty comments are not allowed.")
           setErrorOpen(true)
           return
         }
         postRequest('comments/new', {'token': token, 'body':newComment, 'post_id':props.post.id})
         .then((value: object) => {
-          
+            //Render updated comments, which will be directly returned from backend
+            const updatedComments = value as Comment[]
+            setComments(updatedComments)
         })
         .catch((error: any) => {
           setErrorMsg(error.message)
@@ -88,7 +95,7 @@ const PostInterface: React.FC<Props> = (props) => {
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>
-            <CommentList post_id={props.post.id} />
+            <CommentList post_id={props.post.id} comments={comments} setComments={setComments} />
             </div>
             <ErrorDisplay errorMsg={errorMsg}
                             setErrorMsg={setErrorMsg}

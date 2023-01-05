@@ -7,10 +7,11 @@ import React from 'react';
 
 type Props = {
     post_id: number;
+    comments: Comment[] | null;
+    setComments: (val: Comment[] | null) => void;
 };
 
-const CommentList: React.FC<Props> = ({ post_id }: Props) => {
-    const [comments, setComments] = useState<Comment[] | null>(null);
+const CommentList: React.FC<Props> = ({ post_id, comments, setComments }: Props) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const CommentList: React.FC<Props> = ({ post_id }: Props) => {
           .catch((error: any) => {
             setError(error.message);
           });
-      }, [post_id]);
+      }, [post_id, setComments]);
 
     if (error) {
     return <h1>{error}</h1>;
