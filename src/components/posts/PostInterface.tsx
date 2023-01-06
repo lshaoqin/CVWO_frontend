@@ -108,9 +108,9 @@ const PostInterface: React.FC<Props> = (props) => {
             {token && <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
             post_id={props.post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />}
             <hr></hr>
-            <EnterComment newComment={newComment}
+            {token && <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
-                        SubmitHandler={SubmitHandler}/>
+                        SubmitHandler={SubmitHandler}/>}
             <CommentList post_id={props.post.id} comments={comments} setComments={setComments} />
             </div>
             <ErrorDisplay errorMsg={errorMsg}
