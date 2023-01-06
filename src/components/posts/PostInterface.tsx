@@ -69,7 +69,6 @@ const PostInterface: React.FC<Props> = (props) => {
         .catch((error: any) => {
           setErrorMsg(error.message)
           setErrorOpen(true)
-          console.error(error.message);
         });
     }
 
@@ -79,7 +78,12 @@ const PostInterface: React.FC<Props> = (props) => {
             <Container>
                 {props.tags.map((tag: Tag, index) => 
                     (
-                        <TagChip tag={tag} key={index}/>
+                        <TagChip tag={tag} 
+                                post_id = {props.post.id} 
+                                author = {props.post.author} 
+                                setErrorMsg = {setErrorMsg}
+                                key={index}
+                                setErrorOpen = {setErrorOpen}/>
                     ))}
             </Container>
         );
