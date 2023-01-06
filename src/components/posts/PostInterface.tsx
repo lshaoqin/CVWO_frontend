@@ -1,6 +1,6 @@
 import Post from '../../types/Post';
 import React from 'react';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Tag from '../../types/Tag';
 import TagChip from '../tags/TagChip'
@@ -10,6 +10,7 @@ import ErrorDisplay from '../functional/ErrorSnackbar';
 import { postRequest } from '../../services/request';
 import CommentList from '../comments/CommentList';
 import Comment from '../../types/Comment';
+import TagSelector from '../tags/TagSelector';
 
 type Props = {
     post: Post,
@@ -45,6 +46,9 @@ const PostInterface: React.FC<Props> = (props) => {
 
     //State variables for displaying comments
     const [comments, setComments] = React.useState<Comment[] | null>(null);
+
+    //State variables for selecting new tags
+    const [tags, setTags] = React.useState<string[]>([]);
 
     const token = localStorage.getItem('token')
 
@@ -91,7 +95,14 @@ const PostInterface: React.FC<Props> = (props) => {
             <p id="post-description">
                 {props.post.body}
             </p>
+            <Typography color="textSecondary" className="post-metadata" gutterBottom>
+                    {'Posted by ' + props.post.author + ' on ' + props.post.created_at.toLocaleString()}
+            </Typography>
+            <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
+            <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
+            <TagSelector tags={tags} setTags={setTags} />
+            <hr></hr>
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>
