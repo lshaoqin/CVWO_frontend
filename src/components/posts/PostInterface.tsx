@@ -104,9 +104,12 @@ const PostInterface: React.FC<Props> = (props) => {
             </Typography>
             <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
+            {token && 
+            <div>
             <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
-            {token && <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
-            post_id={props.post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />}
+            <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
+            post_id={props.post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
+            </div>}
             <hr></hr>
             {token && <EnterComment newComment={newComment}
                         setNewComment={setNewComment}

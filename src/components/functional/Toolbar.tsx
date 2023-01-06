@@ -23,7 +23,8 @@ const tb: React.FC<ToolbarProps> = ({ label }) => {
 
         </div>
         <div style={{ display:'flex'}}>
-        <Typography variant="h6" color="inherit" component="div">
+        {localStorage.getItem('token') 
+        ? <Typography variant="h6" color="inherit" component="div">
             Logged in as {localStorage.getItem('username')} - 
             <Link to="/logout" style={{ textDecoration: 'none', color: 'white' }}>
                 <Button color="inherit">
@@ -31,6 +32,11 @@ const tb: React.FC<ToolbarProps> = ({ label }) => {
                 </Button>
             </Link>
         </Typography>
+        :<Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
+        <Button color="inherit">
+        <Typography variant="h6" color="inherit" component="div">Log in</Typography>
+        </Button>
+        </Link>}
         </div>
         </Toolbar>
         </AppBar>
