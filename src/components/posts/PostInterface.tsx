@@ -73,7 +73,6 @@ const PostInterface: React.FC<Props> = (props) => {
         });
     }
 
-    //Generator for accordion of tags, which can be expanded if there are too many to be displayed in one line
     const TagsDisplay: React.FC = () => {
 
         return(
