@@ -10,7 +10,7 @@ import ErrorDisplay from '../functional/ErrorSnackbar';
 import { postRequest } from '../../services/request';
 import CommentList from '../comments/CommentList';
 import Comment from '../../types/Comment';
-import TagSelector from '../tags/TagSelector';
+import TagAdder from '../tags/TagAdder';
 
 type Props = {
     post: Post,
@@ -51,6 +51,7 @@ const PostInterface: React.FC<Props> = (props) => {
     const [tags, setTags] = React.useState<string[]>([]);
 
     const token = localStorage.getItem('token')
+    const is_author = localStorage.getItem('username') === props.post.author
 
     const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -80,7 +81,7 @@ const PostInterface: React.FC<Props> = (props) => {
                     (
                         <TagChip tag={tag} 
                                 post_id = {props.post.id} 
-                                author = {props.post.author} 
+                                is_author = {is_author} 
                                 setErrorMsg = {setErrorMsg}
                                 key={index}
                                 setErrorOpen = {setErrorOpen}/>
@@ -104,7 +105,7 @@ const PostInterface: React.FC<Props> = (props) => {
             <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
             <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
-            <TagSelector tags={tags} setTags={setTags} />
+            <TagAdder tags={tags} setTags={setTags} is_author={is_author} post_id={props.post.id} />
             <hr></hr>
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}

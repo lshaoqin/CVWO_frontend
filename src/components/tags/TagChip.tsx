@@ -6,17 +6,17 @@ import { postRequest } from '../../services/request';
 type Props = {
   tag: Tag;
   post_id: number;
-  author: string;
+  is_author: boolean;
   setErrorMsg: (val: string) => void;
   setErrorOpen: (val: boolean) => void;
 };
 
-const TagChip: React.FC<Props> = ({ tag, post_id, author, setErrorMsg, setErrorOpen }) => {
+const TagChip: React.FC<Props> = ({ tag, post_id, is_author, setErrorMsg, setErrorOpen }) => {
   //If the user is not logged in, they cannot vote (votes are worth 0)
   //If the user is logged in but is not the author, votes are worth 1
   //If the user is the author, votes are worth 5
   const token = localStorage.getItem('token')
-  const voteWeight = token ? (author === localStorage.getItem('username')) ? 5 : 1 : 0
+  const voteWeight = token ? (is_author) ? 5 : 1 : 0
 
   const [userWeight, setUserWeight] = React.useState<number>(tag.userWeight)
 
