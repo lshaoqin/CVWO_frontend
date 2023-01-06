@@ -48,7 +48,7 @@ const PostInterface: React.FC<Props> = (props) => {
     const [comments, setComments] = React.useState<Comment[] | null>(null);
 
     //State variables for selecting new tags
-    const [tags, setTags] = React.useState<string[]>([]);
+    const [tags, setTags] = React.useState<Tag[]>(props.tags);
 
     const token = localStorage.getItem('token')
     const is_author = localStorage.getItem('username') === props.post.author
@@ -77,7 +77,7 @@ const PostInterface: React.FC<Props> = (props) => {
 
         return(
             <Container>
-                {props.tags.map((tag: Tag, index) => 
+                {tags.map((tag: Tag, index) => 
                     (
                         <TagChip tag={tag} 
                                 post_id = {props.post.id} 
@@ -105,7 +105,8 @@ const PostInterface: React.FC<Props> = (props) => {
             <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
             <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
-            <TagAdder tags={tags} setTags={setTags} is_author={is_author} post_id={props.post.id} />
+            <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
+            post_id={props.post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
             <hr></hr>
             <EnterComment newComment={newComment}
                         setNewComment={setNewComment}

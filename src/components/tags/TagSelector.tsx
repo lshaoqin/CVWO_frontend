@@ -6,6 +6,7 @@ import tagOptions from './tagOptions'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@mui/material/Grid';
 
+//For the create post form - add multiple tags at once
 const TagSelector: React.FC<{ tags:string[], setTags: (val: string[]) => void }> = 
     ({tags, setTags}) => {
     const [value, setValue] = React.useState<string>('');
