@@ -26,7 +26,7 @@ const PostDisplayItem: React.FC<Props> = ({ post }) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.titleBody}>
+        <Card className={classes.titleBody} variant="outlined">
             <CardContent>
                 <Typography variant="body2" color="textPrimary" className={classes.titleBody} component="p">
                     {post.title}
