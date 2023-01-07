@@ -57,7 +57,7 @@ const FilterPosts: React.FC<Props> =
       </Select>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Typography>Filter by tag: </Typography>
+      <Typography variant='subtitle2'>Filter by tag: </Typography>
       <TagSearcher onChange={onChange} />
       </Grid>
       </Grid>
