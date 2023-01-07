@@ -32,6 +32,7 @@ const TagSearcher: React.FC<Props> =
 
                 inputValue={value}
                 onInputChange={(event: any, newInputValue: string, reason: string) => {
+                    //Prevent overwriting the setValue call in onChange
                     if (reason === "input") {
                         setValue(newInputValue)
                     }

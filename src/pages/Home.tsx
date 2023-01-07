@@ -7,6 +7,7 @@ import Toolbar from "../components/functional/Toolbar";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
+import FilterPosts from '../components/posts/PostFilter';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);
@@ -14,6 +15,8 @@ const Home: React.FC = () => {
   
   //States for filtering
   const [postsAfter, setPostsAfter] = useState<string>("One week")
+  const [filterByTag, setFilterByTag] = useState<string | null>(null)
+  const [sortBy, setSortBy] = useState<string>("Date")
 
   function rewind_date(label: string) {
     //Get current time
@@ -35,11 +38,12 @@ const Home: React.FC = () => {
         case "One year":
             date.setFullYear(date.getFullYear() - 1)
             return date
+        case "All time":
+            return new Date(0)
     }
   }
 
   useEffect(() => {
-
       getRequest('posts/index', {posts_after:rewind_date(postsAfter)})
       .then((value: object) => {
           console.log(value)
@@ -48,7 +52,7 @@ const Home: React.FC = () => {
       .catch((error: any) => {
           setError(error);
       });
-  }, []);
+  }, [postsAfter]);
 
   if (error) {
     return <h3>{error.message}</h3>;
@@ -57,6 +61,12 @@ const Home: React.FC = () => {
   return (
       <>
           <Toolbar label = "TagUp" />
+          <FilterPosts postsAfter={postsAfter}
+                  setPostsAfter={setPostsAfter}
+                  filterByTag={filterByTag}
+                  setFilterByTag={setFilterByTag}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy} />
           <br />
           <div>
               {posts.map((post: Post) => (
