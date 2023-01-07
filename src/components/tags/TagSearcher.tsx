@@ -19,7 +19,7 @@ const TagSearcher: React.FC<Props> =
                     <TextField {...params} 
                     label="Enter tags here" 
                     variant="outlined" 
-                   
+                    value={value}
                     />
                 }
                 onChange={(event: any, newValue: string | null) => {
@@ -29,9 +29,12 @@ const TagSearcher: React.FC<Props> =
                     }
                   }}
                 //TODO: Properly clear text input on adding tag
+
                 inputValue={value}
-                onInputChange={(event: any, newInputValue: string) => {
-                    setValue(newInputValue)
+                onInputChange={(event: any, newInputValue: string, reason: string) => {
+                    if (reason === "input") {
+                        setValue(newInputValue)
+                    }
                 }}  
             />)
     }
