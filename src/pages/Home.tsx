@@ -11,10 +11,36 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);
   const [error, setError] = useState(null as Error | null);
+  
+  //States for filtering
+  const [postsAfter, setPostsAfter] = useState<string>("One week")
+
+  function rewind_date(label: string) {
+    //Get current time
+    const date = new Date();
+    //Find the Date which is x time period before the current time
+    switch (label){
+        case "One hour":
+            date.setHours(date.getHours() - 1)
+            return date
+        case "One day":
+            date.setDate(date.getDate() - 1)
+            return date
+        case "One week":
+            date.setDate(date.getDate() - 7)
+            return date
+        case "One month":
+            date.setDate(date.getDate() - 31)
+            return date
+        case "One year":
+            date.setFullYear(date.getFullYear() - 1)
+            return date
+    }
+  }
 
   useEffect(() => {
 
-      getRequest('posts/index', {})
+      getRequest('posts/index', {posts_after:rewind_date(postsAfter)})
       .then((value: object) => {
           console.log(value)
           setPosts(value as Array<Post>);
