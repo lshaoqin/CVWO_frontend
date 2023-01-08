@@ -7,6 +7,8 @@ import Select from '@material-ui/core/Select';
 import TagSearcher from '../tags/TagSearcher';
 import { Typography } from '@material-ui/core';
 import { Grid } from '@mui/material';
+import { IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -38,6 +40,14 @@ const FilterPosts: React.FC<Props> =
     setFilterByTag(newValue)
   }
 
+  const clearTagFilter = () => {
+    setFilterByTag(null)
+  }
+
+  const handleSortBy = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSortBy(event.target.value as string)
+  };
+
   return (
     <FormControl className={classes.formControl}>
     <Grid container spacing={3}>
@@ -56,11 +66,31 @@ const FilterPosts: React.FC<Props> =
         <MenuItem value="All time">All time</MenuItem>
       </Select>
       </Grid>
+
       <Grid item xs={12} sm={6}>
       <Typography variant='subtitle2'>Filter by tag: </Typography>
       <TagSearcher onChange={onChange} />
       {filterByTag &&
-      <Typography variant='subtitle2'>(Currently filtering by tag '{filterByTag}')</Typography>}
+      <div>
+      <Typography variant='subtitle2'>(Currently filtering by tag '{filterByTag}')</Typography>
+      <IconButton size="small" onClick={clearTagFilter}>
+        <Close />
+        </IconButton>
+        </div>}
+
+      </Grid>
+      <Grid item xs={12} sm={6}>
+      <InputLabel id="sort-label">Sort by</InputLabel>
+      <Select
+        labelId="sort-label"
+        id="sort-select"
+        value={sortBy}
+        onChange={handleSortBy}
+      >
+        <MenuItem value="date">Date posted</MenuItem>
+        {filterByTag &&
+        <MenuItem value="votes">Tag votes</MenuItem>}
+      </Select>
       </Grid>
       </Grid>
     </FormControl>

@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   //States for filtering
   const [postsAfter, setPostsAfter] = useState<string>("One week")
   const [filterByTag, setFilterByTag] = useState<string | null>(null)
-  const [sortBy, setSortBy] = useState<string>("Date")
+  const [sortBy, setSortBy] = useState<string>("date")
 
   function rewind_date(label: string) {
     //Get current time
@@ -48,7 +48,8 @@ const Home: React.FC = () => {
   useEffect(() => {
       setLoading(true)
       getRequest('posts/index', {posts_after:rewind_date(postsAfter),
-                                filter_by_tag:filterByTag})
+                                filter_by_tag:filterByTag,
+                                sort_by:sortBy})
       .then((value: object) => {
           setLoading(false)
           setPosts(value as Array<Post>);
@@ -57,7 +58,7 @@ const Home: React.FC = () => {
         setLoading(false)
           setError(error);
       });
-  }, [postsAfter, filterByTag]);
+  }, [postsAfter, filterByTag, sortBy]);
 
   if (error) {
     return <h3>{error.message}</h3>;
