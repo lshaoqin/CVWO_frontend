@@ -5,7 +5,7 @@ type Post = {
     title: string;
     body: string;
     author: string;
-    tags: Array<Tag>;
+    score: number;
     created_at: Date;
 };
 

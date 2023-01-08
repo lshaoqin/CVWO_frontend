@@ -29,7 +29,7 @@ const PostDisplayItem: React.FC<Props> = ({ post }) => {
         <Card className={classes.titleBody} variant="outlined">
             <CardContent>
                 <Typography variant="body2" color="textPrimary" className={classes.titleBody} component="p">
-                    {post.title}
+                    {post.score ? post.title + " (" + post.score + " votes)" : post.title}
                 </Typography>
                 <Typography color="textSecondary" className={classes.metadata} gutterBottom>
                     {'Posted by ' + post.author + ' on ' + post.created_at.toLocaleString()}
