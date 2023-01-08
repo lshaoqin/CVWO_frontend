@@ -52,9 +52,8 @@ const FilterPosts: React.FC<Props> =
     <FormControl className={classes.formControl}>
     <Grid container spacing={3}>
     <Grid item xs={12} sm={6}>
-      <InputLabel id="time-label">Time</InputLabel>
+    <Typography variant='subtitle2'>Filter by time: </Typography>
       <Select
-        labelId="time-label"
         id="time-select"
         value={postsAfter}
         onChange={handleTimeChange}
@@ -80,7 +79,7 @@ const FilterPosts: React.FC<Props> =
 
       </Grid>
       <Grid item xs={12} sm={6}>
-      <InputLabel id="sort-label">Sort by</InputLabel>
+      <Typography variant='subtitle2'>Sort by: </Typography>
       <Select
         labelId="sort-label"
         id="sort-select"
