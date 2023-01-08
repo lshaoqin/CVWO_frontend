@@ -12,6 +12,8 @@ import FilterPosts from '../components/posts/PostFilter';
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);
   const [error, setError] = useState(null as Error | null);
+  //Display loading message while loadings posts
+  const [loading, setLoading] = useState<boolean>(false);
   
   //States for filtering
   const [postsAfter, setPostsAfter] = useState<string>("One week")
@@ -44,13 +46,15 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
+      setLoading(true)
       getRequest('posts/index', {posts_after:rewind_date(postsAfter),
                                 filter_by_tag:filterByTag})
       .then((value: object) => {
-          console.log(value)
+          setLoading(false)
           setPosts(value as Array<Post>);
       })
       .catch((error: any) => {
+        setLoading(false)
           setError(error);
       });
   }, [postsAfter, filterByTag]);
@@ -69,13 +73,17 @@ const Home: React.FC = () => {
                   sortBy={sortBy}
                   setSortBy={setSortBy} />
           <br />
-          <div>
+          {loading
+          ?<div> Loading posts...</div>
+          :posts.length === 0 
+          ?<div> No posts were found based on your criteria. </div>
+          :<div>
               {posts.map((post: Post) => (
                 <a href={"/posts/" + post.id} style={{ textDecoration: 'none' }}>
                   <PostCard post={post} />
                 </a>
               ))}
-          </div>
+          </div>}
           <Link to="/newpost">
           <Fab color="primary" 
           aria-label="add" 
