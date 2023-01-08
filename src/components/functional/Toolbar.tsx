@@ -10,7 +10,7 @@ const tb: React.FC<ToolbarProps> = ({ label }) => {
 
     return (
         <AppBar position="static">
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar style={{ display: "flex", justifyContent: "space-between", verticalAlign: "middle"}}>
         <div style={{ display:'flex', justifyContent: 'left'}}>
             
                 <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
