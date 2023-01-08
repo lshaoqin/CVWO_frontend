@@ -25,6 +25,8 @@ const useStyles = makeStyles({
 const PostDisplayItem: React.FC<Props> = ({ post }) => {
     const classes = useStyles();
 
+    const created_at = new Date(post.created_at)
+
     return (
         <Card className={classes.titleBody} variant="outlined">
             <CardContent>
@@ -32,7 +34,7 @@ const PostDisplayItem: React.FC<Props> = ({ post }) => {
                     {post.score ? post.title + " (" + post.score + " votes)" : post.title}
                 </Typography>
                 <Typography color="textSecondary" className={classes.metadata} gutterBottom>
-                    {'Posted by ' + post.author + ' on ' + post.created_at.toLocaleString()}
+                    {'Posted by ' + post.author + ' on ' + created_at.toLocaleString('en-GB')}
                 </Typography>
             </CardContent>
         </Card>

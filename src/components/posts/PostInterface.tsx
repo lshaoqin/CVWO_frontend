@@ -91,6 +91,8 @@ const PostInterface: React.FC<Props> = (props) => {
         
     }
 
+    const created_at = new Date(props.post.created_at)
+
     return (
         <div>
             <Toolbar label="TagUp"/>
@@ -100,7 +102,7 @@ const PostInterface: React.FC<Props> = (props) => {
                 {props.post.body}
             </p>
             <Typography color="textSecondary" className="post-metadata" gutterBottom>
-                    {'Posted by ' + props.post.author + ' on ' + props.post.created_at.toLocaleString()}
+                    {'Posted by ' + props.post.author + ' on ' + created_at.toLocaleString()}
             </Typography>
             <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
