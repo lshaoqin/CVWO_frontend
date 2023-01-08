@@ -44,7 +44,8 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
-      getRequest('posts/index', {posts_after:rewind_date(postsAfter)})
+      getRequest('posts/index', {posts_after:rewind_date(postsAfter),
+                                filter_by_tag:filterByTag})
       .then((value: object) => {
           console.log(value)
           setPosts(value as Array<Post>);
@@ -52,7 +53,7 @@ const Home: React.FC = () => {
       .catch((error: any) => {
           setError(error);
       });
-  }, [postsAfter]);
+  }, [postsAfter, filterByTag]);
 
   if (error) {
     return <h3>{error.message}</h3>;
