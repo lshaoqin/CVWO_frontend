@@ -66,7 +66,7 @@ const Home: React.FC = () => {
 
   return (
       <>
-          <Toolbar label = "TagUp" />
+          <Toolbar />
           <FilterPosts postsAfter={postsAfter}
                   setPostsAfter={setPostsAfter}
                   filterByTag={filterByTag}

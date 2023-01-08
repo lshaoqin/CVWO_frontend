@@ -2,11 +2,7 @@ import { Toolbar, Typography, AppBar, Button} from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-interface ToolbarProps {
-    label: string;
-  }
-
-const tb: React.FC<ToolbarProps> = ({ label }) => {
+const tb: React.FC = () => {
 
     return (
         <AppBar position="static">
@@ -16,7 +12,7 @@ const tb: React.FC<ToolbarProps> = ({ label }) => {
                 <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
                     <Button color="inherit">
                     <Typography variant="h5" color="inherit" component="div" style={{ textTransform: 'none' }}>
-                    {label}
+                    TagUp
                     </Typography>
                     </Button>
                 </Link>

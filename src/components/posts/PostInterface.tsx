@@ -95,7 +95,7 @@ const PostInterface: React.FC<Props> = (props) => {
 
     return (
         <div>
-            <Toolbar label="TagUp"/>
+            <Toolbar/>
             <div className={classes.paper}>
             <h2 id="post-title">{props.post.title}</h2>
             <p id="post-description">
