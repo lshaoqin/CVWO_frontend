@@ -65,7 +65,6 @@ const CreatePost: React.FC = () => {
     .catch((error: any) => {
       setErrorMsg(error.message)
       setErrorOpen(true)
-      console.error(error.message);
     });
   }
   

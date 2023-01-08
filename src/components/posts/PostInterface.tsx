@@ -11,6 +11,8 @@ import { postRequest } from '../../services/request';
 import CommentList from '../comments/CommentList';
 import Comment from '../../types/Comment';
 import TagAdder from '../tags/TagAdder';
+import EditButton from '../functional/EditButton';
+import PostEdit from './PostEdit';
 
 type Props = {
     post: Post,
@@ -49,6 +51,12 @@ const PostInterface: React.FC<Props> = (props) => {
 
     //State variables for selecting new tags
     const [tags, setTags] = React.useState<Tag[]>(props.tags);
+
+    //State variables for updating post on edit
+    const [post, setPost] = React.useState<Post>(props.post);
+
+    //State variables for switching to PostEdit view
+    const [editMode, setEditMode] = React.useState<boolean>(false);
 
     const token = localStorage.getItem('token')
     const is_author = localStorage.getItem('username') === props.post.author
@@ -97,26 +105,35 @@ const PostInterface: React.FC<Props> = (props) => {
         <div>
             <Toolbar/>
             <div className={classes.paper}>
-            <h2 id="post-title">{props.post.title}</h2>
+            {editMode
+            ?<PostEdit post={post}
+                        setErrorOpen={setErrorOpen}
+                        setErrorMsg={setErrorMsg}
+                        setPost={setPost}
+                        setEditMode={setEditMode} />
+            :<div>
+            <h2 id="post-title">{post.title}</h2> 
+            <EditButton onClick={() => setEditMode(true)}/>
             <p id="post-description">
-                {props.post.body}
+                {post.body}
             </p>
             <Typography color="textSecondary" className="post-metadata" gutterBottom>
-                    {'Posted by ' + props.post.author + ' on ' + created_at.toLocaleString()}
+                    {'Posted by ' + post.author + ' on ' + created_at.toLocaleString()}
             </Typography>
+            </div>}
             <Typography variant="h6" color="inherit" component="div">Tags</Typography>
             <TagsDisplay></TagsDisplay>
             {token && 
             <div>
             <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
             <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
-            post_id={props.post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
+            post_id={post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
             </div>}
             <hr></hr>
             {token && <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
                         SubmitHandler={SubmitHandler}/>}
-            <CommentList post_id={props.post.id} comments={comments} setComments={setComments} />
+            <CommentList post_id={post.id} comments={comments} setComments={setComments} />
             </div>
             <ErrorDisplay errorMsg={errorMsg}
                             setErrorMsg={setErrorMsg}

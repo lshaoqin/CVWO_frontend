@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Toolbar from '../functional/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
 import { postRequest } from '../../services/request';
-import { useNavigate } from 'react-router-dom';
-import ErrorDisplay from '../functional/ErrorSnackbar';
 import Post from '../../types/Post';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,32 +22,21 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
     post: Post;
+    setErrorOpen: (val:boolean) => void;
+    setErrorMsg: (val:string) => void;
+    setPost: (val:Post) => void;
+    setEditMode: (val:boolean) => void;
 }
 
-const PostEdit: React.FC<Props> = ({post}) => {
+const PostEdit: React.FC<Props> = ({post, setErrorOpen, setErrorMsg, setPost, setEditMode}) => {
   const classes = useStyles();
 
   //State variables for form fields
-  const [title, setTitle] = React.useState<string>("");
-  const [body, setBody] = React.useState<string>("");
-
-  //State variables for error message
-  const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
-
-  const nav = useNavigate()
-  //Redirect user if not logged in
-  useEffect(() => {
-    if (!localStorage.hasOwnProperty('token')) {
-        nav('/login');
-    }
-  })
+  const [title, setTitle] = React.useState<string>(post.title);
+  const [body, setBody] = React.useState<string>(post.body);
+  const [buttonDisable, setButtonDisable] = React.useState<boolean>(false);
   
   const token = localStorage.getItem('token')
-  
-  interface Result {
-    id: string;
-  }
 
   const SubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -60,25 +45,26 @@ const PostEdit: React.FC<Props> = ({post}) => {
       setErrorOpen(true)
       return
     }
-    postRequest('posts/edit', {'token': token, 'title': title, 'body':body})
+    setButtonDisable(true)
+    postRequest('posts/edit', {'token': token, 'title': title, 'body':body, 'id':post.id})
     .then((value: object) => {
-      const result = value as Result
-      nav(`/posts/${result.id}`);
+      setPost(value as Post)
+      setButtonDisable(false)
+      setEditMode(false)
     })
     .catch((error: any) => {
       setErrorMsg(error.message)
       setErrorOpen(true)
-      console.error(error.message);
+      setButtonDisable(false)
     });
   }
+
   
   return (
     <div>
-    <CssBaseline />
-    <Toolbar />
     <Container component="main" maxWidth="lg">
     <div className={classes.paper}>
-    <Typography variant='h2' color="inherit" component="div">Create post</Typography>
+    <Typography variant='h5' color="inherit" component="div">Edit post</Typography>
     <form className={classes.form} noValidate>
       <TextField
         required
@@ -104,17 +90,15 @@ const PostEdit: React.FC<Props> = ({post}) => {
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />
-      <Button variant="contained" color="primary" onClick={SubmitHandler}>
+      <Button variant="contained" color="default" onClick={() => setEditMode(false)} disabled={buttonDisable}>
+        Cancel
+      </Button>
+      <Button variant="contained" color="primary" onClick={SubmitHandler} disabled={buttonDisable}>
         Edit Post
       </Button>
     </form>
     </div>
     </Container>
-    <ErrorDisplay 
-        errorOpen={errorOpen}
-        setErrorOpen={setErrorOpen}
-        errorMsg={errorMsg}
-        setErrorMsg={setErrorMsg}/>
     </div>
   );
 }
