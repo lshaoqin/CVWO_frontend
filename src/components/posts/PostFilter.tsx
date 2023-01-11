@@ -13,7 +13,7 @@ import { Close } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(2),
-    minWidth: 300,
+    minWidth: 500,
     display:'inline-block',
     verticalAlign:'middle'
   },
@@ -52,8 +52,8 @@ const FilterPosts: React.FC<Props> =
 
   return (
     <FormControl className={classes.formControl}>
-    <Grid container spacing={3}>
-    <Grid item xs={12} sm={6}>
+    <Grid container spacing={2}>
+    <Grid item xs={4}>
     <Typography variant='subtitle2'>Filter by time: </Typography>
       <Select
         id="time-select"
@@ -68,7 +68,7 @@ const FilterPosts: React.FC<Props> =
       </Select>
       </Grid>
 
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={4}>
       <Typography variant='subtitle2'>Filter by tag: </Typography>
       <TagSearcher onChange={onChange} />
       {filterByTag &&
@@ -78,9 +78,9 @@ const FilterPosts: React.FC<Props> =
         <Close />
         </IconButton>
         </div>}
+        </Grid>
 
-      </Grid>
-      <Grid item xs={12} sm={6}>
+        <Grid item xs={4}>
       <Typography variant='subtitle2'>Sort by: </Typography>
       <Select
         labelId="sort-label"

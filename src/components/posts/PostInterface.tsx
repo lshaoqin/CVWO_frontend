@@ -112,8 +112,12 @@ const PostInterface: React.FC<Props> = (props) => {
                         setPost={setPost}
                         setEditMode={setEditMode} />
             :<div>
+            <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
             <h2 id="post-title">{post.title}</h2> 
+            {is_author && 
             <EditButton onClick={() => setEditMode(true)}/>
+            }
+            </div>
             <p id="post-description">
                 {post.body}
             </p>

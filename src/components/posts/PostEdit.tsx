@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
 import { postRequest } from '../../services/request';
 import Post from '../../types/Post';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -90,12 +91,18 @@ const PostEdit: React.FC<Props> = ({post, setErrorOpen, setErrorMsg, setPost, se
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />
+      <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
+      <Box m={1}>
       <Button variant="contained" color="default" onClick={() => setEditMode(false)} disabled={buttonDisable}>
         Cancel
       </Button>
+      </Box>
+      <Box m={1}>
       <Button variant="contained" color="primary" onClick={SubmitHandler} disabled={buttonDisable}>
         Edit Post
       </Button>
+      </Box>
+      </div>
     </form>
     </div>
     </Container>
