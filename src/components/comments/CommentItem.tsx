@@ -24,6 +24,13 @@ const useStyles = makeStyles({
 const CommentItem: React.FC<Props> = ({ comment }) => {
     const classes = useStyles();
 
+    const [editMode, setEditMode] = React.useState<boolean>(false);
+
+    const EditComment: React.FC<Props> = ({ comment }) => {
+        const [newComment, setNewComment] = React.useState<string>('');
+
+    }
+
     return (
         <Card className={classes.commentCard}>
             <CardContent>
