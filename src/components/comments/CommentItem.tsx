@@ -39,26 +39,27 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
 
     const EditComment: React.FC = () => {
         const [commentBody, setCommentBody] = React.useState<string>(comment.body);
-        const [errorMsg, setErrorMsg] = React.useState<string>('')
-
-
+        const [errorMsg, setErrorMsg] = React.useState<string>('');
+        const [buttonDisabled, setButtonDisabled] = React.useState<boolean>(false);
 
         function SubmitHandler() {
             if (!commentBody.trim()) {
                 setErrorMsg("Empty comments are not allowed.")
                 return
               }
-              postRequest('comments/edit', {'token': token, 'body':commentBody, 'id':comment.id})
-              .then((value: object) => {
-                    console.log(value)
-                  //Render updated comment
-                  const updatedComments = value as Comment
-                  setComment(updatedComments)
-                  setEditMode(false)
-              })
-              .catch((error: any) => {
-                setErrorMsg(error.message)
-              });
+            setButtonDisabled(true);
+            postRequest('comments/edit', {'token': token, 'body':commentBody, 'id':comment.id})
+            .then((value: object) => {
+                //Render updated comment
+                const updatedComments = value as Comment
+                setComment(updatedComments)
+                setEditMode(false)
+                setButtonDisabled(false)
+            })
+            .catch((error: any) => {
+            setErrorMsg(error.message)
+            setButtonDisabled(false)
+            });
         }
 
         return (
@@ -75,7 +76,7 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
             value={commentBody}
             onChange={(event) => setCommentBody(event.target.value)}
             />
-            <Button variant="contained" color="primary" onClick={SubmitHandler}>
+            <Button variant="contained" color="primary" onClick={SubmitHandler} disabled={buttonDisabled}>
                 Submit
             </Button>
         </Container>
