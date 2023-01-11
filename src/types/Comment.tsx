@@ -1,4 +1,5 @@
 type Comment = {
+    id: number;
     body: string;
     post_id: number;
     author: string;

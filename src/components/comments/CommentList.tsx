@@ -34,7 +34,7 @@ const CommentList: React.FC<Props> = ({ post_id, comments, setComments }: Props)
     return (
         <ul>
             {comments.map((comment, index) => (
-                <CommentItem comment={comment} key={index} />
+                <CommentItem commentData={comment} key={index} />
             ))}
         </ul>
     );
