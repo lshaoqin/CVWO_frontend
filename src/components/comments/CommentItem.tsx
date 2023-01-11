@@ -35,6 +35,8 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
 
     const token = localStorage.getItem('token')
 
+    const created_at = new Date(comment.created_at)
+
     const EditComment: React.FC = () => {
         const [commentBody, setCommentBody] = React.useState<string>(comment.body);
         const [errorMsg, setErrorMsg] = React.useState<string>('')
@@ -91,7 +93,7 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
                     {comment.body}
                 </Typography>
                 <Typography color="textSecondary" className={classes.metadata} gutterBottom>
-                    {'Posted by ' + comment.author + ' on ' + comment.created_at.toLocaleString()}
+                    {'Posted by ' + comment.author + ' on ' + created_at.toLocaleString()}
                 </Typography>
                 </div>
 }
