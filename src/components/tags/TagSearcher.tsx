@@ -19,6 +19,7 @@ const TagSearcher: React.FC<Props> =
                     <TextField {...params} 
                     label="Enter tags here" 
                     variant="outlined" 
+                    inputProps={{ maxLength: 16 }}
                     value={value}
                     />
                 }

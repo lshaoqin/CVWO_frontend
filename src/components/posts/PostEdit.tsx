@@ -76,6 +76,7 @@ const PostEdit: React.FC<Props> = ({post, setErrorOpen, setErrorMsg, setPost, se
         variant="outlined"
         margin='normal'
         name='title'
+        inputProps={{ maxLength: 120 }}
         value={title}
         onChange={(event) => setTitle(event.target.value)}
       />
@@ -88,6 +89,7 @@ const PostEdit: React.FC<Props> = ({post, setErrorOpen, setErrorMsg, setPost, se
         minRows={4}
         margin='normal'
         name='body'
+        inputProps={{ maxLength: 3000 }}
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />

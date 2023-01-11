@@ -36,6 +36,7 @@ const EnterComment: React.FC<Props> =
             label="Leave a comment"
             variant="outlined"
             margin='normal'
+            inputProps={{ maxLength: 3000 }}
             value={newComment}
             onChange={(event) => setNewComment(event.target.value)}
             />

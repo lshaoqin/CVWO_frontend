@@ -130,6 +130,7 @@ const SignUp: React.FC = () => {
               label="Username"
               name="username"
               autoComplete="username"
+              inputProps={{ maxLength: 16 }}
               autoFocus
               onChange={event => setName(event.target.value)}
             />
@@ -142,6 +143,7 @@ const SignUp: React.FC = () => {
               label="Password"
               type="password"
               id="password"
+              inputProps={{ maxLength: 25 }}
               autoComplete="current-password"
               onChange={event => setPassword(event.target.value)}
             />

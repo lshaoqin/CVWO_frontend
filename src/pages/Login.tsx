@@ -108,6 +108,7 @@ const LogIn: React.FC = () => {
               label="Username"
               name="username"
               autoComplete="username"
+              inputProps={{ maxLength: 16 }}
               autoFocus
               onChange={event => setName(event.target.value)}
             />
@@ -121,6 +122,7 @@ const LogIn: React.FC = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              inputProps={{ maxLength: 25 }}
               onChange={event => setPassword(event.target.value)}
             />
             <FormControlLabel
