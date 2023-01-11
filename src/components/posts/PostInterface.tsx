@@ -13,6 +13,7 @@ import Comment from '../../types/Comment';
 import TagAdder from '../tags/TagAdder';
 import EditButton from '../functional/EditButton';
 import PostEdit from './PostEdit';
+import { Box } from '@material-ui/core';
 
 type Props = {
     post: Post,
@@ -130,8 +131,10 @@ const PostInterface: React.FC<Props> = (props) => {
             {token && 
             <div>
             <Typography variant="h6" color="inherit" component="div">Add new tags</Typography>
+            <Box sx={{width: 300, height: 'auto', margin:'auto'}}>
             <TagAdder tags={tags} setTags={setTags} is_author={is_author} 
             post_id={post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
+            </Box>
             </div>}
             <hr></hr>
             {token && <EnterComment newComment={newComment}
