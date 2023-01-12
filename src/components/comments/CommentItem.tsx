@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Card, CardContent, Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import { postRequest } from '../../services/request';
 import DeleteConfirmation from '../functional/DeleteConfirmation';
+import Box from '@mui/material/Box';
 
 type Props = {
     commentData: Comment;
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
     },
     commentCard: {
         marginBottom: '1em',
+        position: 'relative',
     },
     metadata: {
         fontSize: 14,
@@ -116,10 +118,15 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
                 </div>
 }
                 {is_author && 
-                <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
+                <Box sx={{
+                    position: 'absolute',
+                    bottom: 2,
+                    right: 2,
+                    display: 'flex',
+                }}>
                 <EditButton onClick={() => setEditMode(!editMode)}/>
                 <DeleteConfirmation deleteFunc={deleteComment} />
-                </div>
+                </Box>
                 }
                 </CardContent>
             :state === 'error'
