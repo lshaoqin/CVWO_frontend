@@ -119,6 +119,7 @@ const PostInterface: React.FC<Props> = (props) => {
         <div>
             <Toolbar/>
             <div className={classes.paper}>
+            <Box sx={{position: 'relative'}}>
             {editMode
             ?<PostEdit post={post}
                         setErrorOpen={setErrorOpen}
@@ -129,10 +130,15 @@ const PostInterface: React.FC<Props> = (props) => {
             <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
             <h2 id="post-title">{post.title}</h2> 
             {is_author && 
-            <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
+            <Box sx={{
+                position: 'absolute',
+                bottom: 2,
+                right: 2,
+                display: 'flex',
+            }}>
             <EditButton onClick={() => setEditMode(true)}/>
             <DeleteConfirmation deleteFunc={deletePost}/>
-            </div>
+            </Box>
             }
             </div>
             <p style={{fontSize: '20px'}} id="post-description">
@@ -152,6 +158,7 @@ const PostInterface: React.FC<Props> = (props) => {
             post_id={post.id} setErrorMsg={setErrorMsg} setErrorOpen={setErrorOpen} />
             </Box>
             </div>}
+            </Box>
             <hr></hr>
             {token && <EnterComment newComment={newComment}
                         setNewComment={setNewComment}
