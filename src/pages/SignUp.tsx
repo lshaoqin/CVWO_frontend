@@ -3,8 +3,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -65,7 +63,8 @@ const SignUp: React.FC = () => {
   const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
-
+  //State variables for button load
+  const [buttonDisable, setButtonDisable] = React.useState<boolean>(false);
 
   interface Result {
     token: string;
@@ -94,15 +93,18 @@ const SignUp: React.FC = () => {
   const nav = useNavigate();
   const SignUpHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setButtonDisable(true);
     postRequest('users/create', {'name': name, 'password': password})
     .then((value: object) => {
       const result = value as Result
       //Log the user in
       localStorage.setItem('token', result.token)
       localStorage.setItem('username', result.username)
+      setButtonDisable(false);
       nav("/");
     })
     .catch((error: any) => {
+      setButtonDisable(false);
       setErrorMsg(error.message)
       setErrorOpen(true)
       console.error(error.message);
@@ -152,6 +154,7 @@ const SignUp: React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={buttonDisable}
               className={classes.submit}
               onClick={SignUpHandler}
             >

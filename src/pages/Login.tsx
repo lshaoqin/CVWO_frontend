@@ -60,6 +60,9 @@ const LogIn: React.FC = () => {
   const [errorOpen, setErrorOpen] = React.useState<boolean>(false);
   const [errorMsg, setErrorMsg] = React.useState<string>('Something went wrong. Please try again!')
 
+  //State variables for button load
+  const [buttonDisable, setButtonDisable] = React.useState<boolean>(false);
+
   const nav = useNavigate();
 
   interface Result {
@@ -71,18 +74,20 @@ const LogIn: React.FC = () => {
  
   const LoginHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setButtonDisable(true);
     postRequest('users/login', {'name': name, 'password': password})
     .then((value: object) => {
+      
       const result = value as Result
       localStorage.setItem('token', result.token)
       localStorage.setItem('username', result.username)
-      console.log(result);
+      setButtonDisable(false)
       nav("/");
     })
     .catch((error: any) => {
       setErrorMsg(error.message)
       setErrorOpen(true)
-      console.error(error.message);
+      setButtonDisable(false)
     });
   }
   if(localStorage.hasOwnProperty("token")) {
@@ -128,6 +133,7 @@ const LogIn: React.FC = () => {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={buttonDisable}
               className={classes.submit}
               onClick={LoginHandler}
             >
