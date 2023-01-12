@@ -52,7 +52,7 @@ const FilterPosts: React.FC<Props> =
 
   return (
     <FormControl className={classes.formControl}>
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
     <Grid item xs={4}>
     <Typography variant='subtitle2'>Filter by time: </Typography>
       <Select
@@ -68,6 +68,20 @@ const FilterPosts: React.FC<Props> =
       </Select>
       </Grid>
 
+
+
+        <Grid item xs={4}>
+      <Typography variant='subtitle2'>Sort by: </Typography>
+      <Select
+        labelId="sort-label"
+        id="sort-select"
+        value={sortBy}
+        onChange={handleSortBy}
+      >
+        <MenuItem value="date">Date posted</MenuItem>
+        <MenuItem value="votes" disabled={!filterByTag}>Tag votes</MenuItem>
+      </Select>
+      </Grid>
       <Grid item xs={4}>
       <Typography variant='subtitle2'>Filter by tag: </Typography>
       <TagSearcher onChange={onChange} />
@@ -79,20 +93,6 @@ const FilterPosts: React.FC<Props> =
         </IconButton>
         </div>}
         </Grid>
-
-        <Grid item xs={4}>
-      <Typography variant='subtitle2'>Sort by: </Typography>
-      <Select
-        labelId="sort-label"
-        id="sort-select"
-        value={sortBy}
-        onChange={handleSortBy}
-      >
-        <MenuItem value="date">Date posted</MenuItem>
-        {filterByTag &&
-        <MenuItem value="votes">Tag votes</MenuItem>}
-      </Select>
-      </Grid>
       </Grid>
     </FormControl>
   );
