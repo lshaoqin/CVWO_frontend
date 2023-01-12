@@ -74,7 +74,7 @@ const CreatePost: React.FC = () => {
     <Toolbar/>
     <Container component="main" maxWidth="lg">
     <div className={classes.paper}>
-    <Typography variant='h2' color="inherit" component="div">Create post</Typography>
+    <Typography variant='h5' color="inherit" component="div">Create post</Typography>
     <form className={classes.form} noValidate>
       <TextField
         required
