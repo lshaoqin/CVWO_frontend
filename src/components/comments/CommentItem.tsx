@@ -3,6 +3,7 @@ import EditButton from '../functional/EditButton';
 import React from 'react';
 import { Button, Card, CardContent, Container, makeStyles, TextField, Typography } from '@material-ui/core';
 import { postRequest } from '../../services/request';
+import DeleteConfirmation from '../functional/DeleteConfirmation';
 
 type Props = {
     commentData: Comment;
@@ -41,6 +42,7 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
         const [commentBody, setCommentBody] = React.useState<string>(comment.body);
         const [errorMsg, setErrorMsg] = React.useState<string>('');
         const [buttonDisabled, setButtonDisabled] = React.useState<boolean>(false);
+ 
 
         function SubmitHandler() {
             if (!commentBody.trim()) {
@@ -84,9 +86,24 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
 
     }
 
+    //If state is 'default', show the comment
+    //If state is 'hidden', hide the comment(the comment has been deleted)
+    //If state is 'error', display an error message(the comment may have failed to be deleted)
+    const [state, setState] = React.useState<string>('default');
+    function deleteComment() {
+        postRequest('comments/delete', {'token': token, 'comment_id':comment.id})
+        .then(() => {
+            setState('hidden')
+        })
+        .catch((error: any) => {
+            setState('error')
+        })
+    }
+
     return (
         <Card className={classes.commentCard}>
-            <CardContent>
+            {state === 'default'
+            ?   <CardContent>
                 {editMode
                 ? <EditComment />
                 : <div>
@@ -99,9 +116,24 @@ const CommentItem: React.FC<Props> = ({ commentData }) => {
                 </div>
 }
                 {is_author && 
-            <EditButton onClick={() => setEditMode(!editMode)}/>
+                <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
+                <EditButton onClick={() => setEditMode(!editMode)}/>
+                <DeleteConfirmation deleteFunc={deleteComment} />
+                </div>
                 }
+                </CardContent>
+            :state === 'error'
+            ?   <CardContent>
+                <Typography variant="body2" color="textPrimary" className={classes.commentBody} component="p">
+                We may have encountered an error while deleting your comment. 
+                </Typography>
+                <Button onClick={deleteComment}>Try again</Button>
             </CardContent>
+            : <CardContent>
+                <Typography variant="body2" color="textPrimary" className={classes.commentBody} component="p">
+                Comment deleted successfully!
+                </Typography>
+            </CardContent>}
         </Card>
     );
     

@@ -14,6 +14,8 @@ import TagAdder from '../tags/TagAdder';
 import EditButton from '../functional/EditButton';
 import PostEdit from './PostEdit';
 import { Box } from '@material-ui/core';
+import DeleteConfirmation from '../functional/DeleteConfirmation';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     post: Post,
@@ -82,8 +84,20 @@ const PostInterface: React.FC<Props> = (props) => {
         });
     }
 
-    const TagsDisplay: React.FC = () => {
+    const nav = useNavigate();
 
+    function deletePost(){
+        postRequest('posts/delete', {'token': token, 'post_id':props.post.id})
+        .then(() => {
+            nav('/')
+        })
+        .catch((error: any) => {
+            setErrorMsg(error.message)
+            setErrorOpen(true)
+        })
+    }
+
+    const TagsDisplay: React.FC = () => {
         return(
             <Container>
                 {tags.map((tag: Tag, index) => 
@@ -97,7 +111,6 @@ const PostInterface: React.FC<Props> = (props) => {
                     ))}
             </Container>
         );
-        
     }
 
     const created_at = new Date(props.post.created_at)
@@ -116,10 +129,13 @@ const PostInterface: React.FC<Props> = (props) => {
             <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
             <h2 id="post-title">{post.title}</h2> 
             {is_author && 
+            <div style={{display: "flex", alignItems:"center", justifyContent:"center"}}>
             <EditButton onClick={() => setEditMode(true)}/>
+            <DeleteConfirmation deleteFunc={deletePost}/>
+            </div>
             }
             </div>
-            <p id="post-description">
+            <p style={{fontSize: '20px'}} id="post-description">
                 {post.body}
             </p>
             <Typography color="textSecondary" className="post-metadata" gutterBottom>
