@@ -6,18 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert'
+import ErrorDisplay from '../components/functional/ErrorSnackbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postRequest } from '../services/request';
 import { Navigate, useNavigate } from "react-router-dom";
-
-//Source: MUI Docs - creates a stylised alert snackbar
-function Alert(props:any) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const Copyright: React.FC = () => {
   return (
@@ -69,25 +63,6 @@ const SignUp: React.FC = () => {
   interface Result {
     token: string;
     username: string;
-  }
-
-  //Code to display an error snackbar when an error is returned
-  function ErrorDisplay (props:any){
-    const handleClose = (event: any, reason: string) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setErrorOpen(false);
-    };
-
-    return (
-    <Snackbar open={errorOpen} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error">
-      {errorMsg}
-      </Alert>
-    </Snackbar>
-    )
   }
 
   const nav = useNavigate();
@@ -172,7 +147,11 @@ const SignUp: React.FC = () => {
         <Box mt={8}>
           <Copyright />
         </Box>
-        <ErrorDisplay />
+        <ErrorDisplay 
+        errorOpen={errorOpen}
+        setErrorOpen={setErrorOpen}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}/>
       </Container>
     );
   }

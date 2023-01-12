@@ -70,7 +70,6 @@ const LogIn: React.FC = () => {
     username: string;
   }
 
-  //Code to display an error snackbar when an error is returned
  
   const LoginHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
