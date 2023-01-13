@@ -98,6 +98,17 @@ const PostInterface: React.FC<Props> = (props) => {
     }
 
     const TagsDisplay: React.FC = () => {
+        if(tags.length===0){
+            return(
+            <div>
+            <Typography variant="body1" color="textSecondary" component="div">
+            There are currently no tags for this post. Add one to make it more visible!
+            </Typography>
+            </div>
+            );
+        }
+
+        else{
         return(
             <Container>
                 {tags.map((tag: Tag, index) => 
@@ -111,6 +122,7 @@ const PostInterface: React.FC<Props> = (props) => {
                     ))}
             </Container>
         );
+                    }
     }
 
     const created_at = new Date(props.post.created_at)
