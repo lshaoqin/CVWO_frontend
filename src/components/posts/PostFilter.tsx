@@ -11,7 +11,7 @@ import { Close } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
+  form: {
     margin: theme.spacing(2),
     minWidth: 500,
     display:'inline-block',
@@ -51,7 +51,7 @@ const FilterPosts: React.FC<Props> =
   };
 
   return (
-    <FormControl className={classes.formControl}>
+    <div className={classes.form}>
     <Grid container spacing={1}>
     <Grid item xs={4}>
     <Typography variant='subtitle2'>Filter by time: </Typography>
@@ -94,7 +94,7 @@ const FilterPosts: React.FC<Props> =
         </div>}
         </Grid>
       </Grid>
-    </FormControl>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+//Change to URL of the API
 const API_BASE_URL: string = 'http://localhost:3000'
 
 export async function getRequest(path: string, params: object): Promise<object> {
@@ -22,7 +23,14 @@ export async function postRequest(path: string, params: object): Promise<object>
     } 
     catch (error: any) 
     {
-        throw new Error(`Failed to post data to API: ${error.message}`);
+        if (error){
+            throw new Error(`An error has occurred - ${error.response.data.error}`);
+        }
+        else {
+            throw new Error('An error has occurred - Please try again!')
+        }
+
+        
     }
 }
 

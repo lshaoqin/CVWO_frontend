@@ -68,6 +68,16 @@ const SignUp: React.FC = () => {
   const nav = useNavigate();
   const SignUpHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if(!name) {
+      setErrorMsg('Please enter a username.')
+      setErrorOpen(true)
+      return
+    }
+    if(!password) {
+      setErrorMsg('Please enter a password.')
+      setErrorOpen(true)
+      return
+    }
     setButtonDisable(true);
     postRequest('users/create', {'name': name, 'password': password})
     .then((value: object) => {
@@ -82,7 +92,6 @@ const SignUp: React.FC = () => {
       setButtonDisable(false);
       setErrorMsg(error.message)
       setErrorOpen(true)
-      console.error(error.message);
     });
   }
   if(localStorage.hasOwnProperty("token")) {
