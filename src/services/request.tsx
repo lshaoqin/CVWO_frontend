@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //Change to URL of the API
-const API_BASE_URL: string = 'http://localhost:3000'
+const API_BASE_URL: string = 'https://tagup-jcqn.onrender.com'
 
 export async function getRequest(path: string, params: object): Promise<object> {
     try 
@@ -24,7 +24,7 @@ export async function postRequest(path: string, params: object): Promise<object>
     catch (error: any) 
     {
         if (error){
-            throw new Error(`An error has occurred - ${error.response.data.error}`);
+            throw new Error(error.response.data.error);
         }
         else {
             throw new Error('An error has occurred - Please try again!')
