@@ -96,7 +96,7 @@ const CreatePost: React.FC = () => {
         fullWidth
         multiline
         minRows={4}
-        inputProps={{ maxLength: 120 }}
+        inputProps={{ maxLength: 4000 }}
         margin='normal'
         name='body'
         value={body}
