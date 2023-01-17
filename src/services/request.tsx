@@ -23,7 +23,7 @@ export async function postRequest(path: string, params: object): Promise<object>
     } 
     catch (error: any) 
     {
-        if (error){
+        if (error.response.data.error){
             throw new Error(error.response.data.error);
         }
         else {

@@ -8,6 +8,7 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import FilterPosts from '../components/posts/PostFilter';
+import { Box } from '@material-ui/core';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = useState([] as Array<Post>);
@@ -67,6 +68,7 @@ const Home: React.FC = () => {
   return (
       <>
           <Toolbar />
+          <Box>
           <FilterPosts postsAfter={postsAfter}
                   setPostsAfter={setPostsAfter}
                   filterByTag={filterByTag}
@@ -96,6 +98,7 @@ const Home: React.FC = () => {
             <AddIcon />
         </Fab>
         </Link>
+        </Box>
       </>
   );
 };
