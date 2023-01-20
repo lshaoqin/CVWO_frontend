@@ -145,7 +145,7 @@ const PostInterface: React.FC<Props> = (props) => {
             </Box>
             }
             </div>
-            <p style={{fontSize: '20px'}} id="post-description">
+            <p style={{fontSize: '20px', whiteSpace: 'pre-line'}} id="post-description">
                 {post.body}
             </p>
             <Typography color="textSecondary" className="post-metadata" gutterBottom>
