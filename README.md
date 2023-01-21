@@ -1,5 +1,7 @@
 # CVWO Assignment Project - TagUp
 
+This is the frontend for the forum app TagUp, which was created for [CVWO](https://www.comp.nus.edu.sg/~vwo/) 2022.
+
 TagUp is designed to be a simple, easy-to-use forum with the unique feature of community tagging, meaning the community can decide what tags should be attached to a post. 
 
 Users can view, filter, and open posts without logging in, but an account is required to post, comment, and add or vote on tags. To make an account, simply head to the signup page and enter a name and a password. 
