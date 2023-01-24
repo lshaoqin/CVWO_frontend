@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //Change to URL of the API
-const API_BASE_URL: string = process.env.REACT_APP_API_URL
+const API_BASE_URL: string | undefined = process.env.REACT_APP_API_URL
 
 export async function getRequest(path: string, params: object): Promise<object> {
     try 
